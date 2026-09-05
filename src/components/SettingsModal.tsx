@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { X, Volume2, Bell, RotateCcw, Download } from 'lucide-react';
-import { UserSettings, Task, Session } from '../types';
+import React, { useState, useEffect } from 'react';
+import { X, Volume2, Bell, RotateCcw, Download, Sun, Moon, Monitor } from 'lucide-react';
+import { UserSettings, Task, Session, ThemeMode } from '../types';
 import { soundEngine } from '../utils/sound';
 import { exportDataAsJSON, getInitialSeedSessions, INITIAL_TASKS } from '../utils/storage';
 
@@ -27,6 +27,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
   const [form, setForm] = useState<UserSettings>(settings);
 
+  useEffect(() => {
+    if (isOpen) {
+      setForm(settings);
+    }
+  }, [isOpen, settings]);
+
   if (!isOpen) return null;
 
   const handleSave = () => {
@@ -47,17 +53,60 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     }
   };
 
+  const handleThemeSelect = (theme: ThemeMode) => {
+    const updated = { ...form, theme };
+    setForm(updated);
+    // Live update settings to let user preview immediately
+    onSaveSettings(updated);
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="geo-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '620px' }}>
         <div className="modal-header">
           <h2 className="modal-title">System Settings</h2>
-          <button className="geo-btn geo-btn-sm geo-btn-icon-only" onClick={onClose}>
+          <button className="geo-btn geo-btn-sm geo-btn-icon-only" onClick={onClose} aria-label="Close Settings">
             <X size={16} />
           </button>
         </div>
 
         <div className="modal-body">
+          {/* Appearance & Theme Selector */}
+          <div className="settings-group">
+            <span className="settings-group-title">Appearance & Dark Mode</span>
+            <div className="theme-selector-group">
+              <button
+                type="button"
+                className={`theme-opt-btn ${form.theme === 'light' ? 'active' : ''}`}
+                onClick={() => handleThemeSelect('light')}
+                id="theme-opt-light"
+              >
+                <Sun size={15} />
+                LIGHT (CLASSIC)
+              </button>
+
+              <button
+                type="button"
+                className={`theme-opt-btn ${form.theme === 'dark' ? 'active' : ''}`}
+                onClick={() => handleThemeSelect('dark')}
+                id="theme-opt-dark"
+              >
+                <Moon size={15} />
+                DARK (STEALTH)
+              </button>
+
+              <button
+                type="button"
+                className={`theme-opt-btn ${form.theme === 'system' ? 'active' : ''}`}
+                onClick={() => handleThemeSelect('system')}
+                id="theme-opt-system"
+              >
+                <Monitor size={15} />
+                SYSTEM MATCH
+              </button>
+            </div>
+          </div>
+
           {/* Pomodoro Settings */}
           <div className="settings-group">
             <span className="settings-group-title">Pomodoro Timers (Minutes)</span>

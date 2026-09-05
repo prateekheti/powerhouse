@@ -22,6 +22,7 @@ import {
 } from './utils/storage';
 import { useStopwatch } from './hooks/useStopwatch';
 import { usePomodoro } from './hooks/usePomodoro';
+import { useTheme } from './hooks/useTheme';
 
 export const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>(() => loadStoredTasks());
@@ -31,6 +32,14 @@ export const App: React.FC = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+
+  // Theme hook
+  const { themeMode, isDark, setTheme, toggleTheme } = useTheme(
+    settings.theme,
+    (newTheme) => {
+      setSettings((prev) => ({ ...prev, theme: newTheme }));
+    }
+  );
 
   // Sync state to local storage
   useEffect(() => {
@@ -177,6 +186,9 @@ export const App: React.FC = () => {
         if (taskInput) {
           taskInput.focus();
         }
+      } else if (e.key === 'd' || e.key === 'D') {
+        e.preventDefault();
+        toggleTheme();
       } else if (e.key === '?') {
         e.preventDefault();
         setIsShortcutsOpen((prev) => !prev);
@@ -185,7 +197,7 @@ export const App: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [stopwatch, pomodoro]);
+  }, [stopwatch, pomodoro, toggleTheme]);
 
   return (
     <>
@@ -200,6 +212,9 @@ export const App: React.FC = () => {
       <div className="app-container">
         {/* Blueprint Header */}
         <Header
+          themeMode={themeMode}
+          isDark={isDark}
+          onToggleTheme={toggleTheme}
           onOpenSettings={() => setIsSettingsOpen(true)}
           onOpenHistory={() => setIsHistoryOpen(true)}
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
@@ -300,7 +315,10 @@ export const App: React.FC = () => {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
         settings={settings}
-        onSaveSettings={setSettings}
+        onSaveSettings={(newSettings) => {
+          setSettings(newSettings);
+          setTheme(newSettings.theme);
+        }}
         tasks={tasks}
         sessions={sessions}
         onResetToDemoData={handleResetToDemoData}

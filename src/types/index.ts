@@ -35,12 +35,15 @@ export interface PomodoroSettings {
   autoStartWork: boolean;
 }
 
+export type ThemeMode = 'light' | 'dark' | 'system';
+
 export interface UserSettings {
   dailyGoalMinutes: number;
   weeklyGoalMinutes: number;
   soundEnabled: boolean;
   soundVolume: number; // 0 to 1
   notificationsEnabled: boolean;
+  theme: ThemeMode;
   pomodoro: PomodoroSettings;
 }
 

@@ -15,6 +15,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   soundEnabled: true,
   soundVolume: 0.8,
   notificationsEnabled: true,
+  theme: 'light',
   pomodoro: {
     workMinutes: 25,
     shortBreakMinutes: 5,

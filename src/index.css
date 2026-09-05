@@ -1,11 +1,17 @@
 /* PowerHouse — Geometric Productivity Machine CSS */
 
 :root {
+  /* Light Theme / Classic Blueprint */
   --bg-canvas: #d2d5d9;
   --bg-card: #f8f9fb;
   --bg-card-hover: #ffffff;
+  --bg-surface: #ffffff;
   --bg-header: #e3e6e9;
+  --bg-modal: #ffffff;
+  --bg-modal-header: #eef1f4;
+  --bg-table-header: #e4e7ea;
   --border-color: #000000;
+  --border-subtle: #d0d4d8;
   --border-width: 2px;
   --text-primary: #0a0a0a;
   --text-secondary: #55585c;
@@ -14,12 +20,113 @@
   --accent-orange-glow: rgba(255, 122, 0, 0.85);
   --accent-green: #059669;
   --accent-red: #dc2626;
-  
+
+  --btn-bg: #ffffff;
+  --btn-text: #000000;
+  --btn-border: #000000;
+  --btn-hover-bg: #000000;
+  --btn-hover-text: #ffffff;
+  --btn-primary-bg: #000000;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover-bg: #ff7a00;
+  --btn-primary-hover-text: #000000;
+
+  --graph-grid: rgba(0, 0, 0, 0.06);
+  --graph-line: #000000;
+  --graph-dot-fill: #000000;
+  --graph-dot-stroke: #ffffff;
+  --tooltip-bg: #000000;
+  --tooltip-text: #ffffff;
+  --shadow-modal: 12px 12px 0px #000000;
+  --shadow-subtle: 4px 4px 0px rgba(0, 0, 0, 0.2);
+
+  --priority-high-bg: #fee2e2;
+  --priority-high-text: #991b1b;
+  --priority-med-bg: #fef3c7;
+  --priority-med-text: #92400e;
+  --priority-low-bg: #e0e7ff;
+  --priority-low-text: #3730a3;
+
+  --orb-opacity: 0.88;
+  --orb-gradient: radial-gradient(
+    circle,
+    rgba(255, 122, 0, 0.88) 0%,
+    rgba(255, 138, 15, 0.68) 32%,
+    rgba(255, 158, 40, 0.35) 54%,
+    rgba(255, 180, 70, 0.12) 70%,
+    transparent 82%
+  );
+  --watermark-color: rgba(255, 255, 255, 0.72);
+  --watermark-shadow: 0 0 40px rgba(255, 255, 255, 0.35);
+  --grid-dot-color: rgba(0, 0, 0, 0.08);
+
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-display: 'Space Grotesk', var(--font-sans);
 
   --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-theme: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme / Stealth Cyber-Machine */
+  --bg-canvas: #090b0e;
+  --bg-card: #13171f;
+  --bg-card-hover: #1a202c;
+  --bg-surface: #0e1117;
+  --bg-header: #13171f;
+  --bg-modal: #13171f;
+  --bg-modal-header: #1a202c;
+  --bg-table-header: #1a202c;
+  --border-color: #323b49;
+  --border-subtle: #222936;
+  --border-width: 2px;
+  --text-primary: #f0f3f8;
+  --text-secondary: #9aa5b5;
+  --text-muted: #5e6b7d;
+  --accent-orange: #ff8c1a;
+  --accent-orange-glow: rgba(255, 140, 26, 0.55);
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+
+  --btn-bg: #181d26;
+  --btn-text: #f0f3f8;
+  --btn-border: #384252;
+  --btn-hover-bg: #ff8c1a;
+  --btn-hover-text: #090b0e;
+  --btn-primary-bg: #ff8c1a;
+  --btn-primary-text: #090b0e;
+  --btn-primary-hover-bg: #ffffff;
+  --btn-primary-hover-text: #000000;
+
+  --graph-grid: rgba(255, 255, 255, 0.08);
+  --graph-line: #ff8c1a;
+  --graph-dot-fill: #ff8c1a;
+  --graph-dot-stroke: #090b0e;
+  --tooltip-bg: #000000;
+  --tooltip-text: #ffffff;
+  --shadow-modal: 12px 12px 0px rgba(0, 0, 0, 0.85);
+  --shadow-subtle: 4px 4px 0px rgba(0, 0, 0, 0.5);
+
+  --priority-high-bg: rgba(239, 68, 68, 0.2);
+  --priority-high-text: #fca5a5;
+  --priority-med-bg: rgba(245, 158, 11, 0.2);
+  --priority-med-text: #fcd34d;
+  --priority-low-bg: rgba(99, 102, 241, 0.2);
+  --priority-low-text: #c7d2fe;
+
+  --orb-opacity: 0.65;
+  --orb-gradient: radial-gradient(
+    circle,
+    rgba(255, 122, 0, 0.7) 0%,
+    rgba(255, 140, 26, 0.45) 30%,
+    rgba(255, 160, 50, 0.2) 55%,
+    rgba(255, 180, 80, 0.06) 72%,
+    transparent 85%
+  );
+  --watermark-color: rgba(255, 255, 255, 0.035);
+  --watermark-shadow: 0 0 60px rgba(255, 122, 0, 0.12);
+  --grid-dot-color: rgba(255, 255, 255, 0.07);
 }
 
 * {
@@ -39,9 +146,10 @@ html, body {
   line-height: 1.45;
   overflow-x: hidden;
   position: relative;
+  transition: var(--transition-theme);
 }
 
-/* Background Atmosphere Layer (Exact Match to Blueprint) */
+/* Background Atmosphere Layer */
 .powerhouse-background-layer {
   position: fixed;
   inset: 0;
@@ -57,9 +165,10 @@ html, body {
 .powerhouse-grid-overlay {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(circle, var(--grid-dot-color) 1.2px, transparent 1.2px);
   background-size: 28px 28px;
   opacity: 0.6;
+  transition: opacity 300ms ease;
 }
 
 /* Large Soft Glowing Orange Orb */
@@ -70,31 +179,26 @@ html, body {
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 122, 0, 0.88) 0%,
-    rgba(255, 138, 15, 0.68) 32%,
-    rgba(255, 158, 40, 0.35) 54%,
-    rgba(255, 180, 70, 0.12) 70%,
-    transparent 82%
-  );
+  background: var(--orb-gradient);
   filter: blur(16px);
   border-radius: 50%;
+  opacity: var(--orb-opacity);
   animation: pulse-aura 6s ease-in-out infinite alternate;
+  transition: opacity 300ms ease;
 }
 
 @keyframes pulse-aura {
   0% {
     transform: translate(-50%, -50%) scale(0.96);
-    opacity: 0.88;
+    opacity: var(--orb-opacity);
   }
   100% {
     transform: translate(-50%, -50%) scale(1.04);
-    opacity: 0.98;
+    opacity: calc(var(--orb-opacity) + 0.1);
   }
 }
 
-/* Giant Semi-Transparent White Background Typography */
+/* Giant Semi-Transparent Background Typography */
 .powerhouse-watermark-text {
   position: absolute;
   top: 52%;
@@ -106,11 +210,12 @@ html, body {
   font-style: italic;
   letter-spacing: -0.035em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--watermark-color);
   white-space: nowrap;
   user-select: none;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.35);
+  text-shadow: var(--watermark-shadow);
   line-height: 0.9;
+  transition: color 300ms ease, text-shadow 300ms ease;
 }
 
 /* Main Layout Structure */
@@ -137,6 +242,7 @@ html, body {
   padding: 10px 18px;
   min-height: 60px;
   gap: 16px;
+  transition: var(--transition-theme);
 }
 
 .brand-section {
@@ -155,14 +261,15 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
+  color: var(--text-primary);
 }
 
 .brand-badge {
   font-size: 0.65rem;
   font-family: var(--font-mono);
   font-weight: 700;
-  background: #000;
-  color: #fff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   padding: 2px 6px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -180,9 +287,10 @@ html, body {
   align-items: center;
   justify-content: center;
   border: var(--border-width) solid var(--border-color);
-  background: #ffffff;
+  background: var(--bg-surface);
   padding: 4px 18px;
   min-width: 200px;
+  transition: var(--transition-theme);
 }
 
 .local-time-label {
@@ -198,7 +306,7 @@ html, body {
   font-family: var(--font-mono);
   font-size: 1.15rem;
   font-weight: 800;
-  color: #000000;
+  color: var(--text-primary);
   letter-spacing: 0.04em;
 }
 
@@ -215,7 +323,7 @@ html, body {
   font-style: italic;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .header-actions {
@@ -232,9 +340,9 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   padding: 8px 16px;
-  background: #ffffff;
-  color: #000000;
-  border: var(--border-width) solid var(--border-color);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: var(--border-width) solid var(--btn-border);
   border-radius: 0;
   cursor: pointer;
   display: inline-flex;
@@ -246,8 +354,8 @@ html, body {
 }
 
 .geo-btn:hover {
-  background: #000000;
-  color: #ffffff;
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
 }
 
 .geo-btn:active {
@@ -255,14 +363,15 @@ html, body {
 }
 
 .geo-btn-primary {
-  background: #000000;
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--border-color);
 }
 
 .geo-btn-primary:hover {
-  background: #ff7a00;
-  color: #000000;
-  border-color: #000000;
+  background: var(--btn-primary-hover-bg);
+  color: var(--btn-primary-hover-text);
+  border-color: var(--border-color);
 }
 
 .geo-btn-danger:hover {
@@ -280,15 +389,33 @@ html, body {
   padding: 6px 8px;
 }
 
-/* Quick Start Work Banner (Top Frictionless Trigger) */
+.geo-btn-active {
+  background: var(--accent-orange) !important;
+  color: #000000 !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Theme Toggle Button in Header */
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+/* Quick Start Work Banner */
 .quick-start-banner {
   border: var(--border-width) solid var(--border-color);
-  background: #ffffff;
+  background: var(--bg-surface);
   padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  transition: var(--transition-theme);
 }
 
 .quick-start-status {
@@ -310,13 +437,13 @@ html, body {
 }
 
 .status-indicator.ready {
-  background: #f1f3f5;
-  color: #111;
+  background: var(--bg-card);
+  color: var(--text-primary);
 }
 
 .status-indicator.working {
-  background: #ff7a00;
-  color: #000;
+  background: var(--accent-orange);
+  color: #000000;
   animation: pulse-working 1.5s infinite;
 }
 
@@ -336,17 +463,22 @@ html, body {
   font-size: 0.88rem;
   padding: 8px 12px;
   border: var(--border-width) solid var(--border-color);
-  background: #ffffff;
-  color: #000000;
+  background: var(--bg-surface);
+  color: var(--text-primary);
   outline: none;
+  transition: var(--transition-theme);
 }
 
 .geo-input:focus {
-  background: #fffdf5;
-  box-shadow: 0 0 0 1px #000;
+  background: var(--bg-card-hover);
+  box-shadow: 0 0 0 1px var(--accent-orange);
 }
 
-/* Main Grid Layout (Matching the Blueprint) */
+.geo-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Main Grid Layout */
 .blueprint-main-grid {
   display: grid;
   grid-template-columns: 1fr 1.15fr 1.35fr;
@@ -364,6 +496,7 @@ html, body {
   justify-content: space-between;
   gap: 16px;
   position: relative;
+  transition: var(--transition-theme);
 }
 
 .blueprint-card-header {
@@ -380,6 +513,7 @@ html, body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
 .blueprint-card-badge {
@@ -388,8 +522,9 @@ html, body {
   font-weight: 700;
   text-transform: uppercase;
   padding: 2px 6px;
-  border: 1.5px solid #000;
-  background: #fff;
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-primary);
 }
 
 /* Timer Display */
@@ -399,8 +534,9 @@ html, body {
   align-items: center;
   justify-content: center;
   padding: 24px 10px;
-  background: #ffffff;
+  background: var(--bg-surface);
   border: var(--border-width) solid var(--border-color);
+  transition: var(--transition-theme);
 }
 
 .timer-digits {
@@ -408,7 +544,7 @@ html, body {
   font-size: clamp(2.4rem, 4vw, 3.4rem);
   font-weight: 800;
   letter-spacing: 0.02em;
-  color: #000000;
+  color: var(--text-primary);
   line-height: 1;
 }
 
@@ -422,10 +558,10 @@ html, body {
   color: var(--text-secondary);
 }
 
-/* Sub-card / Separate Box underneath Card (Blueprint style) */
+/* Sub-card / Separate Box underneath Card */
 .sub-action-box {
   border: var(--border-width) solid var(--border-color);
-  background: #ffffff;
+  background: var(--bg-surface);
   padding: 10px 14px;
   display: flex;
   align-items: center;
@@ -445,6 +581,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: var(--transition-theme);
 }
 
 /* Preset selector tags */
@@ -459,7 +596,8 @@ html, body {
   font-size: 0.75rem;
   font-weight: 700;
   padding: 6px 4px;
-  background: #ffffff;
+  background: var(--bg-surface);
+  color: var(--text-primary);
   border: var(--border-width) solid var(--border-color);
   cursor: pointer;
   text-align: center;
@@ -467,12 +605,13 @@ html, body {
 }
 
 .preset-btn:hover {
-  background: #f1f3f5;
+  background: var(--bg-card-hover);
 }
 
 .preset-btn.active {
-  background: #000000;
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--border-color);
 }
 
 /* To-Do List Card Styles */
@@ -496,12 +635,19 @@ html, body {
   padding: 3px 8px;
   background: transparent;
   border: 1px solid var(--border-color);
+  color: var(--text-secondary);
   cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.todo-filter-btn:hover {
+  color: var(--text-primary);
 }
 
 .todo-filter-btn.active {
-  background: #000000;
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--border-color);
 }
 
 .todo-list-scroll {
@@ -517,7 +663,7 @@ html, body {
   width: 6px;
 }
 .todo-list-scroll::-webkit-scrollbar-thumb {
-  background: #000000;
+  background: var(--border-color);
 }
 
 .todo-item {
@@ -525,7 +671,7 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 8px 10px;
-  background: #ffffff;
+  background: var(--bg-surface);
   border: var(--border-width) solid var(--border-color);
   gap: 8px;
   transition: all var(--transition-fast);
@@ -533,7 +679,7 @@ html, body {
 
 .todo-item.completed {
   opacity: 0.55;
-  background: #eceff2;
+  background: var(--bg-card);
 }
 
 .todo-item.completed .todo-title {
@@ -556,18 +702,20 @@ html, body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: #ffffff;
+  background: var(--bg-surface);
   flex-shrink: 0;
 }
 
 .geo-checkbox.checked {
-  background: #000000;
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--border-color);
 }
 
 .todo-title {
   font-size: 0.88rem;
   font-weight: 600;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -579,20 +727,20 @@ html, body {
   font-weight: 800;
   text-transform: uppercase;
   padding: 2px 5px;
-  border: 1px solid #000;
+  border: 1px solid var(--border-color);
 }
 
 .priority-high {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--priority-high-bg);
+  color: var(--priority-high-text);
 }
 .priority-medium {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--priority-med-bg);
+  color: var(--priority-med-text);
 }
 .priority-low {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: var(--priority-low-bg);
+  color: var(--priority-low-text);
 }
 
 .todo-actions {
@@ -606,13 +754,15 @@ html, body {
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #000;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
+  transition: all var(--transition-fast);
 }
 
 .todo-icon-btn:hover {
-  background: #e2e5e8;
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
 }
 
 /* Lower Section: Blueprint Progress Graph */
@@ -631,6 +781,7 @@ html, body {
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
+  transition: var(--transition-theme);
 }
 
 .stat-row-group {
@@ -643,7 +794,7 @@ html, body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: 1px dashed #a0a4aa;
+  border-bottom: 1px dashed var(--border-subtle);
   padding-bottom: 4px;
 }
 
@@ -659,7 +810,7 @@ html, body {
   font-family: var(--font-mono);
   font-size: 1.05rem;
   font-weight: 800;
-  color: #000000;
+  color: var(--text-primary);
 }
 
 /* Progress Graph Card */
@@ -670,6 +821,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transition: var(--transition-theme);
 }
 
 .progress-header-row {
@@ -688,13 +840,14 @@ html, body {
 .graph-svg-container {
   width: 100%;
   height: 220px;
-  background: #ffffff;
+  background: var(--bg-surface);
   border: var(--border-width) solid var(--border-color);
   position: relative;
   overflow: hidden;
+  transition: var(--transition-theme);
 }
 
-/* Bottom Action Bar (Blueprint Add/Button) */
+/* Bottom Action Bar */
 .blueprint-footer-action-bar {
   display: flex;
   justify-content: center;
@@ -707,8 +860,8 @@ html, body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(3px);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -717,16 +870,18 @@ html, body {
 }
 
 .geo-modal {
-  background: #ffffff;
-  border: 3px solid #000000;
+  background: var(--bg-modal);
+  border: 3px solid var(--border-color);
   width: 100%;
   max-width: 650px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 12px 12px 0px #000000;
+  box-shadow: var(--shadow-modal);
   animation: modal-pop 0.15s ease-out;
+  color: var(--text-primary);
+  transition: var(--transition-theme);
 }
 
 @keyframes modal-pop {
@@ -736,11 +891,12 @@ html, body {
 
 .modal-header {
   padding: 16px 20px;
-  background: #eef1f4;
+  background: var(--bg-modal-header);
   border-bottom: var(--border-width) solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--text-primary);
 }
 
 .modal-title {
@@ -748,6 +904,7 @@ html, body {
   font-size: 1.2rem;
   font-weight: 900;
   text-transform: uppercase;
+  color: var(--text-primary);
 }
 
 .modal-body {
@@ -760,7 +917,7 @@ html, body {
 
 .modal-footer {
   padding: 14px 20px;
-  background: #eef1f4;
+  background: var(--bg-modal-header);
   border-top: var(--border-width) solid var(--border-color);
   display: flex;
   justify-content: flex-end;
@@ -778,19 +935,21 @@ html, body {
 .history-table th {
   text-align: left;
   padding: 8px 10px;
-  background: #e4e7ea;
-  border-bottom: var(--border-width) solid #000;
+  background: var(--bg-table-header);
+  border-bottom: var(--border-width) solid var(--border-color);
   font-weight: 800;
   text-transform: uppercase;
+  color: var(--text-primary);
 }
 
 .history-table td {
   padding: 8px 10px;
-  border-bottom: 1px solid #d0d4d8;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
 }
 
 .history-table tr:hover {
-  background: #f8fafc;
+  background: var(--bg-card-hover);
 }
 
 /* Settings Form Controls */
@@ -798,7 +957,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed var(--border-subtle);
   padding-bottom: 16px;
 }
 
@@ -807,6 +966,7 @@ html, body {
   font-size: 0.85rem;
   font-weight: 800;
   text-transform: uppercase;
+  color: var(--text-primary);
 }
 
 .settings-field {
@@ -819,6 +979,64 @@ html, body {
 .settings-field label {
   font-size: 0.88rem;
   font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Theme Selector Segmented Control */
+.theme-selector-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.theme-opt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.theme-opt-btn:hover {
+  background: var(--bg-card-hover);
+}
+
+.theme-opt-btn.active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--accent-orange);
+  box-shadow: inset 0 0 0 1px var(--accent-orange);
+}
+
+/* Keyboard Shortcut list item */
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.shortcut-kbd {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.82rem;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  padding: 3px 8px;
+  border: 1px solid var(--border-color);
 }
 
 /* Responsive Media Queries */
@@ -859,5 +1077,8 @@ html, body {
   }
   .quick-start-input-wrap {
     max-width: 100%;
+  }
+  .theme-selector-group {
+    grid-template-columns: 1fr;
   }
 }

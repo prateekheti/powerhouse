@@ -42,13 +42,13 @@ export const DailySummaryCard: React.FC<DailySummaryCardProps> = ({ summary }) =
 
         <div className="stat-row">
           <span className="stat-label">Streak:</span>
-          <span className="stat-val" style={{ color: '#ea580c' }} id="summary-streak-days">
+          <span className="stat-val" style={{ color: 'var(--accent-orange)' }} id="summary-streak-days">
             🔥 {summary.streakDays} days
           </span>
         </div>
       </div>
 
-      <div style={{ background: '#ffffff', border: 'var(--border-width) solid #000', padding: '8px 10px', textAlign: 'center' }}>
+      <div style={{ background: 'var(--bg-surface)', border: 'var(--border-width) solid var(--border-color)', color: 'var(--text-primary)', padding: '8px 10px', textAlign: 'center' }}>
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 800 }}>
           {summary.streakDays >= 7 ? '⚡️ CONSISTENCY BEAST' : 'KEEP GOING! JUST DO IT!'}
         </span>

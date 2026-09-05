@@ -109,7 +109,7 @@ export const SessionHistoryModal: React.FC<SessionHistoryModalProps> = ({
           </div>
 
           {/* Sessions Table */}
-          <div style={{ maxHeight: '420px', overflowY: 'auto', border: 'var(--border-width) solid #000' }}>
+          <div style={{ maxHeight: '420px', overflowY: 'auto', border: 'var(--border-width) solid var(--border-color)' }}>
             {filteredSessions.length === 0 ? (
               <div style={{ padding: '40px 20px', textAlign: 'center', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
                 NO LOGGED SESSIONS FOUND

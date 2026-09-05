@@ -176,11 +176,11 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
         >
           <defs>
             <linearGradient id="blueprintGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff7a00" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#ff7a00" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="var(--accent-orange)" stopOpacity="0.32" />
+              <stop offset="100%" stopColor="var(--accent-orange)" stopOpacity="0.02" />
             </linearGradient>
             <pattern id="graphGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="1" />
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--graph-grid)" strokeWidth="1" />
             </pattern>
           </defs>
 
@@ -198,7 +198,7 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
                   y1={y}
                   x2={width - paddingX}
                   y2={y}
-                  stroke={ratio === 0 ? '#000000' : 'rgba(0,0,0,0.12)'}
+                  stroke={ratio === 0 ? 'var(--border-color)' : 'var(--graph-grid)'}
                   strokeWidth={ratio === 0 ? '2' : '1'}
                   strokeDasharray={ratio === 0 ? undefined : '3 3'}
                 />
@@ -208,7 +208,7 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
                   textAnchor="end"
                   fontSize="9"
                   fontFamily="var(--font-mono)"
-                  fill="#777"
+                  fill="var(--text-muted)"
                 >
                   {minsVal}m
                 </text>
@@ -223,7 +223,7 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
               y1={height - paddingY - (dailyGoalMinutes / maxMinutes) * (height - paddingY * 2)}
               x2={width - paddingX}
               y2={height - paddingY - (dailyGoalMinutes / maxMinutes) * (height - paddingY * 2)}
-              stroke="#ea580c"
+              stroke="var(--accent-orange)"
               strokeWidth="1.5"
               strokeDasharray="4 4"
             />
@@ -236,7 +236,7 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
           <path
             d={linePath}
             fill="none"
-            stroke="#000000"
+            stroke="var(--graph-line)"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -258,7 +258,7 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
                     fontSize="10"
                     fontFamily="var(--font-mono)"
                     fontWeight="600"
-                    fill="#333"
+                    fill="var(--text-secondary)"
                   >
                     {pt.data.label}
                   </text>
@@ -269,8 +269,8 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
                   cx={pt.x}
                   cy={pt.y}
                   r="4"
-                  fill="#000000"
-                  stroke="#ffffff"
+                  fill="var(--graph-dot-fill)"
+                  stroke="var(--graph-dot-stroke)"
                   strokeWidth="2"
                   style={{ cursor: 'pointer', transition: 'r 0.15s' }}
                 />
@@ -296,15 +296,15 @@ export const ProgressGraphCard: React.FC<ProgressGraphCardProps> = ({
               position: 'absolute',
               top: 10,
               right: 12,
-              background: '#000000',
-              color: '#ffffff',
+              background: 'var(--tooltip-bg)',
+              color: 'var(--tooltip-text)',
               padding: '6px 12px',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.78rem',
               fontWeight: 700,
-              border: '1px solid #000',
+              border: '1px solid var(--border-color)',
               pointerEvents: 'none',
-              boxShadow: '4px 4px 0px rgba(0,0,0,0.2)',
+              boxShadow: 'var(--shadow-subtle)',
             }}
           >
             {hoveredPoint.label} ({hoveredPoint.dateKey}): {Math.floor(hoveredPoint.minutes / 60)}h {hoveredPoint.minutes % 60}m ({hoveredPoint.sessionCount} sessions)
