@@ -251,6 +251,7 @@ export const App: React.FC = () => {
             totalSessions={pomodoro.totalSessions}
             isRunning={pomodoro.isRunning}
             remainingSeconds={pomodoro.remainingSeconds}
+            totalDuration={pomodoro.totalDuration}
             currentTaskTitle={pomodoro.currentTaskTitle}
             onSetTaskTitle={pomodoro.setCurrentTaskTitle}
             onStart={pomodoro.start}

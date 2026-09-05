@@ -286,6 +286,7 @@ export function usePomodoro(
     totalSessions: settings.longBreakInterval || 4,
     isRunning,
     remainingSeconds,
+    totalDuration: getDurationForMode(mode, preset),
     currentTaskTitle,
     setCurrentTaskTitle,
     start,
